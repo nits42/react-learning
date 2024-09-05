@@ -10,7 +10,7 @@ then ask to choose Framework - `React` and then ask for varient - `javascript`
 then run `npm install` - for dependencies 
 
 ## To Use Tailwind css with react
-go to [Tailwind css official website] (https://tailwindcss.com/) 
+go to [Tailwind CSS](https://tailwindcss.com/) 
 
 ## Development server
 
