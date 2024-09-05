@@ -1,6 +1,6 @@
 ﻿# react-learning
 
-This project was generated with [Vite](https://react.dev/versions) version 18.3.1.
+This project was generated with [Vite 4](https://vitejs.dev/guide/) and [React](https://react.dev/versions) version 18.3.1.
 
 ## To create Project by using Vite
 run 
