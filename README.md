@@ -9,6 +9,9 @@ it will ask for Project name - `react-learning`
 then ask to choose Framework - `React` and then ask for varient - `javascript`
 then run `npm install` - for dependencies 
 
+## To Use Tailwind css with react
+go to [Tailwind css official website] (https://tailwindcss.com/) 
+
 ## Development server
 
 To Run the application - 
