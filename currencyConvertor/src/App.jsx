@@ -12,9 +12,20 @@ function App() {
   const [to, setTo] = useState("inr")
   const [convertedAmount, setConvertedAmount] = useState(0)
 
+  const [currencyName, setCurrencyName] = useState("usd")
+
   const currencyInfo = useCurrencyInfo(from)
   const options = Object.keys(currencyInfo)
-  console.log(options);
+  // const currencyNames = Object.keys(currencyName)
+  // const currNames = Object.values(currencyName)
+  // for (let i = 0; i < options.length; i++) {
+  //   if (options[i] === currencyNames[i]) {
+  //     options[i] = options[i].concat(" - " + currNames[i])
+  //     console.log(" -- "+options[i].concat(" - " + currNames[i]));
+  //   }
+  // }
+  
+  //
   
 
   const swap = () => {
@@ -40,16 +51,30 @@ function App() {
 
   //   fetchData();
   // }, []);
+  let currencyNameUrl = 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies.json'
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch(currencyNameUrl)
+        const data = await response.json();
+        console.log(data);
+        setCurrencyName(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    fetchData();
+  }
+  , []);
 
   return (
     <div
       className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
-      style={{
-        backgroundImage: `url('https://images.pexels.com/photos/3532540/pexels-photo-3532540.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')`,
-      }}
     >
       <div className="w-full">
         <div className="w-full max-w-md mx-auto border border-gray-60 rounded-lg p-5 backdrop-blur-sm bg-white/30">
+          <h1 className="text-2xl text-white text-center mb-4">Currency Exchange</h1>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -62,18 +87,20 @@ function App() {
                 amount={amount}
                 currencyOptions={options}
                 onCurrencyChange={(currency) => setFrom(currency)}
-                selectCurrency={from}
+                selectedCurrency={from}
                 onAmountChange={(amount) => setAmount(parseFloat(amount).toFixed(2))}
               />
             </div>
             <div className="relative w-full h-0.5">
               <button
                 type="button"
-                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-purple-600 hover:bg-green-500 text-white px-2 py-0.5"
+                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white 
+                 bg-purple-600 hover:bg-green-500 text-white px-2 py-0.5 rounded-xl transition-all duration-1000 transform group-hover:translate-x-full ease"
                 onClick={swap}
               > 
                 swap
               </button>
+              
             </div>
             <div className="w-full mt-1 mb-4">
               <InputBox
@@ -81,15 +108,18 @@ function App() {
                 amount={parseFloat(convertedAmount).toFixed(2)}
                 currencyOptions={options}
                 onCurrencyChange={(currency) => setTo(currency)}
-                selectCurrency={to}
+                selectedCurrency={to}
               />
             </div>
-            <div className="w-full mt-1 mb-4 text-black-800">
+            <div className="w-full mt-1 mb-4 text-white">
               Exchange Rate:  {parseFloat(currencyInfo[to]).toFixed(2)}
             </div>
-            <button type="submit" className="w-full bg-purple-600 hover:bg-green-500 text-white px-4 py-3 rounded-lg">
+
+            <button type="submit" className="w-full bg-purple-600 hover:bg-green-500 text-white px-4 py-3 
+              rounded-xl transition-all duration-1000 transform group-hover:translate-x-full ease">
               Convert {from.toUpperCase()} to {to.toUpperCase()}
             </button>
+            
           </form>
         </div>
       </div>
